@@ -25,6 +25,7 @@ done
 
 # directory structure 3 levels deep
 : <<'END_COMMENT'
+README-INSTRUCTIONS.pdf
 SD_Card/
 └── FCDATA01
     ├── DATALOG
