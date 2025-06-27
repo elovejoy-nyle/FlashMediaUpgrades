@@ -1,11 +1,5 @@
 #!/bin/bash
-# Notes:
-# What you need for this script to run nice:
-# Your Series README.pdf in the same dir
-# USB_Media dir with *.ZNX and configured hgauto.ini 
-# SD_Card dir with *.zld in FCDATA01/PROGRAM and configured autoexec.ini in FCDATA01
-# A dir named ALLUNIT_RECIPES with all unit recipies 
-#
+
 for unit in ALLUNIT_RECIPES/*; do
     name=$(basename "$unit")
     outdir="OUTPUT/${name}_upgrade_kit"
@@ -29,7 +23,59 @@ i="${dir%/}"
 zip -r "${i}.zip" "$i" 
 done
 
+# directory structure
+: <<'END_COMMENT'
+SD_Card/
+└── FCDATA01
+    ├── DATALOG
+    ├── PROGRAM
+    ├── RECIPE
+    ├── TLS
+    ├── TRACE
+    └── autoexec.ini
+USB_Media/
+├── R513a1403.ZNX
+└── hgauto.ini
+ALLUNIT_RECIPES/
+├── C125W_MP
+│   └── FCDATA01
+├── C125W_SP
+│   └── FCDATA01
+├── C185A_MP_CWP
+│   └── FCDATA01
+├── C185A_SP_CWP
+│   └── FCDATA01
+├── C185W_MP
+│   └── FCDATA01
+├── C185W_SP
+│   └── FCDATA01
+├── C250A_MP
+│   └── FCDATA01
+├── C250A_MP_CWP
+│   └── FCDATA01
+├── C250A_SP
+│   └── FCDATA01
+├── C250A_SP_CWP
+│   └── FCDATA01
+├── C270WM_MP
+│   └── FCDATA01
+├── C270WM_SP
+│   └── FCDATA01
+├── C90A_MP_CWP
+│   └── FCDATA01
+├── C90A_SP_CWP
+│   └── FCDATA01
+└── HPB
+    └── FCDATA01
+END_COMMENT
 
+# Notes:
+# What you need for this script to run nice:
+# Your Series README.pdf in the same dir
+# USB_Media dir with *.ZNX and configured hgauto.ini 
+# SD_Card dir with *.zld in FCDATA01/PROGRAM and configured autoexec.ini in FCDATA01
+# A dir named ALLUNIT_RECIPES with all unit recipies 
+#
 
 #for i in `ls ALLUNIT_RECIPES/`
 #do
