@@ -23,12 +23,13 @@ i="${dir%/}"
 zip -r "${i}.zip" "$i" 
 done
 
-# directory structure
+# directory structure 3 levels deep
 : <<'END_COMMENT'
 SD_Card/
 └── FCDATA01
     ├── DATALOG
     ├── PROGRAM
+    │   └── R513a1403.zld
     ├── RECIPE
     ├── TLS
     ├── TRACE
@@ -39,34 +40,49 @@ USB_Media/
 ALLUNIT_RECIPES/
 ├── C125W_MP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C125W_SP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C185A_MP_CWP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C185A_SP_CWP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C185W_MP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C185W_SP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C250A_MP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C250A_MP_CWP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C250A_SP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C250A_SP_CWP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C270WM_MP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C270WM_SP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C90A_MP_CWP
 │   └── FCDATA01
+│       └── RECIPE
 ├── C90A_SP_CWP
 │   └── FCDATA01
+│       └── RECIPE
 └── HPB
     └── FCDATA01
+        └── RECIPE
 END_COMMENT
 
 # Notes:
