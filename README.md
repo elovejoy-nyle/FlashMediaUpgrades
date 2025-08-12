@@ -8,3 +8,4 @@
 What that looks like:<br>
 <img src="layo.jpg">
 <br>
+Script execution is using bash in windows WSL.
