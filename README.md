@@ -1,5 +1,7 @@
- Notes: <br>
- What you need for this script to run nice:<br>
+ #What you need for this script to run nice:<br>
+
+Just for C - sersies units MCP and E - Series require manual packaaging.<br>
+ 
  Your Series README.pdf in the same dir<br>
  USB_Media dir with *.ZNX and configured hgauto.ini <br>
  SD_Card dir with *.zld in FCDATA01/PROGRAM and configured autoexec.ini in FCDATA01<br>
