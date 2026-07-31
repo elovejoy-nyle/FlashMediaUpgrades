@@ -1,4 +1,5 @@
- #What you need for this script to run nice:<br>
+Variations are on **CODE BASE** rather than by series.
+** #What you need for this script to run nice:**
 
 Just for C - sersies units MCP and E - Series require manual packaaging.<br>
  
