@@ -49,11 +49,31 @@ The application requires Python 3 and PySide6.
 
 ```bash
 python3 FMU_builder.py
-
-
+```
+<pre>
 OR
 
 Look for your platform in the RELEASES folder.
 
+FMU_builder     --> Linux (Mint) executable
+
+FMU_builder.exe --> Windows executable
+
+<pre>
+
 TODO/FIX:
+
     Documents in templates folder
+
+```bash
+# Build Notes:
+
+$ pyinstaller \
+    --noconfirm \ 
+    --clean \
+    --onefile \ 
+    --windowed \
+    --name FMU_Builder \     
+    FMU_builder.py
+
+```
