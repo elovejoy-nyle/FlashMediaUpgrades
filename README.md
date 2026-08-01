@@ -59,7 +59,11 @@ FMU_builder     --> Linux (Mint) executable
 
 FMU_builder.exe --> Windows executable
 
+
+Put your executable of choice in the main project folder, 
+and run on your desired platform.
 <pre>
+
 
 TODO/FIX:
 
