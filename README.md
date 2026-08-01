@@ -1,24 +1,59 @@
-Variations are on **CODE BASE** rather than by series.
+########################################################################
 
-** #What you need for this script to run nice:**
+                      Flash Media Updates_builder
 
-Just for C - sersies units MCP and E - Series require manual packaaging.<br>
- 
- Your Series README.pdf in the same dir<br>
- USB_Media dir with *.ZNX and configured hgauto.ini <br>
- SD_Card dir with *.zld in FCDATA01/PROGRAM and configured autoexec.ini in FCDATA01<br>
- A dir named ALLUNIT_RECIPES with all unit recipies <br>
-This Repo contains ALLUNIT_RECIPES<br><br>
-BE CAUTIOUS AS RECIPES COULD CHANGE<br>
-Make sure you are using the proper recipes<br>
-<br>
-What that looks like:<br>
-<img src="layo.jpg">
-<br>
-Script execution is using bash in windows WSL.<br>
-$ ./mkkits.sh 
-<br><br>
-what happens next is all the recipes in ALL_RECIPES (c-series) are congregated by type respectively,<br>
-and packaged. run.jpg shows what script ouptut looks like on the left, and folder OUTPUT/ on the right.<br>
-the zipped packages are the flash media upgrade kits.<br><br>
-<img src="run.jpg">
+                  Builds Flash media update packages. 
+
+########################################################################
+# Flash Media Upgrade Kit Builder
+
+Flash Media Upgrade Kit Builder creates ready-to-use upgrade packages for
+C-Series, E-Series, and MCP products.
+
+It combines the selected PLC program, HMI project, product recipes, and required
+USB or SD card files into a separate ZIP package for each supported model.
+
+![Flash Media Upgrade Kit Builder](imgs/DONE.png)
+
+## Using the Program
+
+1. Select the **Project root** containing the templates and
+   `ALLUNIT_RECIPES` folder.
+2. Select the folder containing the release `.zld` and `.ZNX` files.
+3. Check the product families you want to build.
+4. Select the PLC and HMI files for each product family.
+5. Review the detected models.
+6. Click **Build Packages**.
+
+The completed packages are placed in the appropriate output folder:
+
+- `C-Series-OUTPUT`
+- `E-Series-OUTPUT`
+- `MCP-OUTPUT`
+
+Each model receives its own ZIP file.
+
+Enable **Replace existing packages** when rebuilding packages that already
+exist.
+
+## Recipe Files
+
+Recipes are copied from `ALLUNIT_RECIPES` into a `{UNIT}_RECIPES` folder inside
+each package.
+
+The original files in `ALLUNIT_RECIPES` are not modified.
+
+## Running From Source
+
+The application requires Python 3 and PySide6.
+
+```bash
+python3 FMU_builder.py
+
+
+OR
+
+Look for your platform in the RELEASES folder.
+
+TODO/FIX:
+    Documents in templates folder
