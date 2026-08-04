@@ -67,7 +67,8 @@ and run on your desired platform.
 
 TODO/FIX:
 
-    Documents in templates folder
+    inclusion of old docs. script unifies recipes folder as {unit}_recipes
+    Docs ought to be edited to support this change. take some new pictures.
 
 ```bash
 # Build Notes:
