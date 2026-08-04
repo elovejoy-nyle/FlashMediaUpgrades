@@ -1,0 +1,278 @@
+\documentclass[11pt]{article}
+
+\usepackage[letterpaper,margin=0.85in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{etoolbox}
+\usepackage{listings}
+\usepackage{url}
+% -----------------------------------------------------------------------------
+% SERIES CONFIGURATION
+% Edit only this block when producing a series-specific document.
+% -----------------------------------------------------------------------------
+
+% Valid examples: E360, C-series, MCP
+\newcommand{\ProductSeries}{Unit-series}
+
+% Human-readable product description used throughout the document.
+\newcommand{\ProductDescription}{R513A C-series Heat Pump}
+
+% Name shown by the HMI upgrade utility, where applicable.
+\newcommand{\UpgradeUtilityName}{Heat Pump Upgrade Utility}
+
+% Name of the downloaded/extracted package.
+\newcommand{\UpgradePackageName}{\texttt{UNIT\_upgrade\_kit}}
+
+% Example HMI and PLC program names. These are examples only; the actual names
+% are determined by the selected package and may change between releases.
+\newcommand{\ExampleHMIFile}{\texttt{program.ZNX}}
+\newcommand{\ExamplePLCFile}{\texttt{program.zld}}
+
+% Set to true for E360 and C-series. Set to false for MCP.
+\newtoggle{HasRecipes}
+\toggletrue{HasRecipes}
+% \togglefalse{HasRecipes} % MCP
+
+% Unit-specific recipe folder emitted by the package-generation program.
+% The generated package uses: {unit}_RECIPES
+\newcommand{\RecipeFolder}{\texttt{\{unit\}\_RECIPES}}
+
+% Optional support/contact wording.
+\newcommand{\SupportName}{Nyle support}
+
+% -----------------------------------------------------------------------------
+% DOCUMENT STYLE
+% -----------------------------------------------------------------------------
+
+\definecolor{NyleBlue}{HTML}{1F4E79}
+\definecolor{NoteBlue}{HTML}{EAF2F8}
+\definecolor{WarnRed}{HTML}{9C2F2F}
+\definecolor{LightGray}{HTML}{F2F2F2}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=NyleBlue,
+  urlcolor=NyleBlue,
+  pdftitle={Upgrading a \ProductDescription\ with Flash Media}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\ProductSeries\ Flash Media Upgrade}
+\rhead{Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\setlist[itemize]{leftmargin=1.4em,itemsep=0.3em,topsep=0.4em}
+\setlist[enumerate]{leftmargin=1.6em,itemsep=0.6em,topsep=0.4em}
+
+\newcommand{\warningbox}[1]{%
+  \begin{center}
+  \fcolorbox{WarnRed}{LightGray}{%
+    \parbox{0.92\linewidth}{\textbf{Important:} #1}}
+  \end{center}}
+
+\newcommand{\notebox}[1]{%
+  \begin{center}
+  \fcolorbox{NyleBlue}{NoteBlue}{%
+    \parbox{0.92\linewidth}{\textbf{Note:} #1}}
+  \end{center}}
+
+\newcommand{\placeholderfigure}[2]{%
+  \begin{figure}[H]
+    \centering
+    \fbox{\parbox[c][2.0in][c]{0.82\linewidth}{\centering
+      \textit{Insert image: #1}}}
+    \caption{#2}
+  \end{figure}}
+
+\lstdefinestyle{tree}{
+  basicstyle=\ttfamily\small,
+  frame=single,
+  backgroundcolor=\color{LightGray},
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false
+}
+
+\title{\textbf{Upgrading a \ProductDescription\\with Flash Media}}
+\author{Nyle Controls Group}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Scope}
+
+This procedure describes how to upgrade the HMI and PLC software on a
+\ProductDescription{} using prepared USB and SD flash media. 
+
+\warningbox{Back up the complete contents of the SD card currently installed in
+the PLC before beginning. Record the unit configuration and any values that may
+need to be restored after the upgrade.}
+
+\section*{Before You Begin}
+
+Turn the  \textbf{System Off}. From the HMI configuration pages,
+record the existing unit settings and serial number. Some software revisions introduce new
+configuration items, so settings may need to be reviewed after the upgrade.
+
+Confirm that you have the upgrade package intended for the correct product
+series and unit model. Extract the package before copying files to removable
+media.
+
+\section*{Upgrade Package Contents}
+
+An upgrade kit contains the files needed to perform the HMI and PLC upgrade. HMI upgrade files are in USB\_Media,
+and the PLC  upgrade files are in the SD\_CARD folder.
+
+\begin{lstlisting}[style=tree]
+UNIT_upgrade_kit/
+|-- README-INSTRUCTIONS.pdf
+|-- USB_Media/
+|   |-- hgauto.ini
+|   `-- <HMI program>.ZNX
+|-- SD_CARD/
+|   `-- FCDATA01/
+|       |-- PROGRAM/
+|       |   `-- <PLC program>.zld
+|       `-- autoexec.ini
+\end{lstlisting}
+
+
+
+\section*{Prepare the HMI USB Media}
+
+\begin{enumerate}
+  \item Format a USB-A flash drive as FAT32.
+  \item Copy the \emph{contents} of the package's \texttt{USB\_Media} directory
+        directly to the root of the USB drive.
+  \item Confirm that \texttt{hgauto.ini} and the supplied \texttt{.ZNX} file are
+        in the root directory.
+  \item Safely eject the USB drive from the computer.
+\end{enumerate}
+
+\section*{Prepare the PLC Upgrade SD Card}
+
+\begin{enumerate}
+  \item Format an otherwise empty SD card as FAT32.
+  \item Copy the \emph{contents} of the package's \texttt{SD\_CARD} directory to
+        the root of the SD card.
+  \item Confirm that the SD\_CARD root contains \texttt{FCDATA01}, with the upgraded program under \path{FCDATA01\PROGRAM}, and autoexec.ini in 
+  FCDATA01.
+  \item Safely eject the SD card from the computer.
+\end{enumerate}
+
+\section*{Upgrade the HMI}
+
+\begin{enumerate}
+  \item With the system powered on, but set to \textbf{System Off}, open the
+        electrical enclosure and locate the rear of the HMI.
+  \item Insert the prepared USB drive into the HMI's \textbf{USB2} port. USB2 is
+        the port immediately adjacent to the Ethernet port on the HMI used in
+        the existing process documentation.
+  \item Close and secure the enclosure as required, then observe the HMI.
+  \item When the confirmation window appears, select the option to upgrade the
+        HMI.
+  \item If prompted, use the authorized HMI credentials for the product. Do not
+        include service passwords in public or generally distributed versions of
+        this document.
+  \item Allow the HMI upgrade to finish. The display may flash, go blank, or
+        restart during the process. Acknowledge the completion message when it
+        appears.
+\end{enumerate}
+
+\placeholderfigure{rear of HMI showing USB2 beside the Ethernet port}{Insert the HMI upgrade USB media into USB2.}
+
+\placeholderfigure{series-specific HMI upgrade confirmation screen}{Series-specific HMI upgrade utility.}
+
+\section*{Upgrade the PLC}
+
+\begin{enumerate}
+  \item Confirm again that the original SD card and all configuration data has
+        been backed up.
+  \item Power off the system and remove the HMI USB upgrade media.
+  \item Insert the prepared PLC upgrade SD card into the PLC.
+  \item Power on the PLC and HMI.
+  \item Wait for the PLC software upgrade to complete. Initialization may take
+        longer than normal. Relay clicking and temporary HMI communication
+        errors can occur while the PLC is loading the new program.
+  \item Allow up to five minutes for the upgrade process to complete. 
+        Continue only after the PLC and HMI have initialized and
+        communication errors have cleared.
+\end{enumerate}
+
+
+
+\section*{Verify the Software Upgrade}
+
+Open the HMI's system-information page using the navigation method provided for
+the selected product series. Confirm that the displayed PLC and HMI versions
+match the versions included in the upgrade package.
+
+After confirming the versions, remove the PLC upgrade SD card.
+
+\placeholderfigure{system information page showing HMI version, PLC version, and unit model}{Verify the installed HMI and PLC versions.}
+
+\iftoggle{HasRecipes}{%
+\section*{Install the Unit Recipes}
+
+The E360 and C-series require a final SD card containing the configuration and
+recipe files for the specific unit.
+
+\begin{enumerate}
+  \item Format a blank SD card as FAT32.
+  \item Open the generated \RecipeFolder{} directory that matches the unit being
+        upgraded.
+  \item Copy its complete \texttt{FCDATA01} directory to the root of the blank
+        SD card.
+  \item Safely eject the SD card and install it in the PLC.
+  \item The card may be inserted while the unit is powered, but power-cycle the
+        system if the new configuration is not detected.
+  \item Return to the system-information page and verify the unit model and
+        configuration.
+\end{enumerate}
+
+\subsection*{Serial Number Recovery}
+
+The unit may request that its serial number be entered again. Use the serial
+number shown on the unit label. If the label is unreadable, check the SD\_CARD
+backup made before the upgrade. In the existing C-series process, the serial
+number is stored in:
+
+\begin{center}
+\texttt{FCDATA01/RECIPE/SN.csv}
+\end{center}
+
+Contact \SupportName{} if the label and backup file are  unavailable.
+}{%
+\section*{MCP Final Configuration Check}
+
+The MCP series does not use the recipe-installation step. After removing the PLC
+upgrade SD card, verify the unit configuration and operational settings from the
+HMI. Restore or correct any settings recorded before the upgrade.
+}
+
+\section*{Final Checks}
+
+\begin{itemize}
+  \item HMI and PLC versions match the intended release.
+  \item The correct unit model is displayed.
+  \item All recorded configuration values have been reviewed.
+  \iftoggle{HasRecipes}{\item The correct \RecipeFolder{} contents are installed.}{}
+  \item Upgrade media has been removed and replaced with the SD Card containing unit recipes
+        
+\end{itemize}
+
+The \ProductDescription{} flash-media upgrade is now complete.
+
+\end{document}
